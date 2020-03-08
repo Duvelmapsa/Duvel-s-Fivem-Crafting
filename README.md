@@ -1,4 +1,4 @@
-# crafting
+# Duvel's Fivem Crafting
 
 ## Project setup
 ```
