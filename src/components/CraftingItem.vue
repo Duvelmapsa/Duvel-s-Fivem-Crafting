@@ -1,14 +1,16 @@
 <template>
-  <li>
+  <div class="testBlock">
     <div class="craftingWrapper__name">{{name}}</div>
     <div class="craftingWrapper__count">x{{count}}</div>
-  </li>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'CraftingItem',
-  props: ['name', 'count']
+  props: ['name', 'count'],
+  components: {
+  }
 };
 </script>
 
@@ -22,6 +24,16 @@ export default {
   width: 100px;
   background: rgba(0, 0, 0, 0.5);
   margin: 0 5px;
+}
+
+.testBlock {
+    display: flex;
+    background: rgba(0,0,0,0.5);
+    width: 100px;
+    height: 100px;
+    flex-flow: column;
+    justify-content: center;
+    margin: 0 5px;
 }
 
 </style>

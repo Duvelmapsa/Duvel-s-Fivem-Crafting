@@ -11,7 +11,9 @@ import Label from './Label.vue'
 import CraftingBoard from './CraftingBoard'
 
 const DUMMY_EQ = [
-  {name: 'Test', count: '2'}
+  {name: 'Test', count: '2'},
+  {name: 'Test2', count: '3'},
+  {name: 'Test3', count: '4'}
 ]
 
 export default {
