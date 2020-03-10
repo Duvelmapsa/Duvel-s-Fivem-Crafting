@@ -1,16 +1,13 @@
 <template>
   <div class="craftingWrapper__board">
-    <!-- <ul v-if="eq.length">
-      <CraftingItem v-for="item in eq" :key="item.name" :name="item.name" :count="item.count" />
-    </ul>-->
     <draggable
-      v-if="eq.length"
       class="eq_drag_list"
-      group="people"
+      :group="{name: 'people', pull:'clone', put: false}"
+      :list='eq'
+
     >
       <CraftingItem v-for="item in eq" :key="item.name" :name="item.name" :count="item.count" />
     </draggable>
-    <div v-else class="noIngredients">Nie posiadasz składników do tworzenia.</div>
   </div>
 </template>
 
@@ -53,6 +50,7 @@ export default {
 .eq_drag_list {
   display: flex;
   margin: 0 -5px;
-  min-height: 100px;
+  min-height: 300px;
+  flex-flow: row wrap;
 }
 </style>

@@ -3,10 +3,15 @@
     <Label text="Użyte składniki" />
     <div class="craftingWrapper__usedIngr">
       <div class="craftingWrapper__usedIngr_subwrapper">
-        <draggable class="used_drag_list" group="people" @change="log"></draggable>
+        <draggable class="used_drag_list" :list='ingredients' group="people">
+          <div class="testBlock" v-for="(item, index) in ingredients" :key="index">
+            <div class="craftingWrapper__name">{{item.name}}</div>
+            <div class="craftingWrapper__count">x{{item.count}}</div>
+          </div>
+        </draggable>
       </div>
       <div class="craftingWrapper__button">
-        <a href="#" class="craftButton">Wytwórz</a>
+        <a href="#" class="craftButton" @click.prevent="craft">Wytwórz</a>
       </div>
     </div>
   </div>
@@ -15,13 +20,85 @@
 <script>
 import Label from "./Label";
 import draggable from "vuedraggable";
+import { mapState, mapGetters, mapMutations } from 'vuex'
+
+const patterns = {
+  'mlotek': ['wood', 'metal', 'plastic'],
+  'bezpiecznik': ['metal', 'ceramika', 'piasek']
+}
 
 export default {
   name: "UsedIngredients",
   components: {
     Label,
     draggable
+  },
+  data() {
+    return {
+      used: [],
+      canBeCreated: ''
+    }
+  },
+  computed: {
+    ...mapState([
+      'ingredients'
+    ]),
+    ...mapGetters([
+      'newIngredients'
+    ])
+  },
+  watch: {
+    newIngredients: function (e) {
+      this.used = [...e]
+    },
+    used: function (e) {
+      const test = [];
+      e.map(item => {
+        test.push(item.item);
+      })
+
+      Object.keys(patterns).forEach((key) => {
+        const found = test.filter((elem) => {
+          return patterns[key].indexOf(elem) > -1;
+        }).length == patterns[key].length
+
+        if (found === true && test.length === patterns[key].length) {
+          console.log('możliwy do wytworzenia:', key)
+          this.canBeCreated = key
+          this.addItem();
+        } else {
+          this.removeItem();
+        }
+        
+      })
+    }
+  },
+  methods: {
+    ...mapMutations({
+      setCanBeCreated: 'CAN_BE_CREATED_ITEM',
+      setQueue: 'QUEUE_ADD',
+      resetIngredients: 'RESET_INGREDIENTS'
+    }),
+    addItem: function () {
+      this.setCanBeCreated(this.canBeCreated);
+    },
+    removeItem: function () {
+      this.setCanBeCreated('');
+    },
+    queueAdd: function (item) {
+      this.setQueue(item)
+    },
+    craft: function () {
+      if (this.canBeCreated != '') {
+        this.queueAdd(this.canBeCreated);
+        this.resetIngredients(this.used)
+        this.used = [];
+      } else {
+        console.log('Nie można nic wytworzyć');
+      }
+    }
   }
+
 };
 </script>
 

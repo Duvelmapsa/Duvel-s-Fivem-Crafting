@@ -1,5 +1,5 @@
 <template>
-  <div class="testBlock">
+  <div class="testBlock" v-if="count > 0">
     <div class="craftingWrapper__name">{{name}}</div>
     <div class="craftingWrapper__count">x{{count}}</div>
   </div>

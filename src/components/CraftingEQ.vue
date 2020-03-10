@@ -9,12 +9,13 @@
 
 import Label from './Label.vue'
 import CraftingBoard from './CraftingBoard'
+import { mapState } from 'vuex'
 
-const DUMMY_EQ = [
-  {name: 'Test', count: '2'},
-  {name: 'Test2', count: '3'},
-  {name: 'Test3', count: '4'}
-]
+// const DUMMY_EQ = [
+//   {name: 'Test', count: '2'},
+//   {name: 'Test2', count: '3'},
+//   {name: 'Test3', count: '4'}
+// ]
 
 export default {
   name: "CraftingEQ",
@@ -22,10 +23,10 @@ export default {
     Label,
     CraftingBoard
   },
-  data: function () {
-    return {
-      eq: DUMMY_EQ
-    }
+  computed: {
+    ...mapState([
+      'eq'
+    ])
   }
 };
 </script>

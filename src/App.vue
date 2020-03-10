@@ -22,8 +22,11 @@ import UsedIngredients from "./components/UsedIngredients";
 import KnownRecipes from "./components/KnownRecipes";
 import Queue from "./components/Queue";
 
+import store from './store/main.js'
+
 export default {
   name: "App",
+  store,
   components: {
     CraftingEQ,
     UsedIngredients,
