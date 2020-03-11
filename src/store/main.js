@@ -30,8 +30,6 @@ export default new Vuex.Store({
     RESET_INGREDIENTS: function (state, items) {
       state.ingredients = [];
       const newEq = [...state.eq]
-      console.log(newEq)
-      console.log(items)
       const names = [];
       items.map(item => {
         names.push(item.item);
