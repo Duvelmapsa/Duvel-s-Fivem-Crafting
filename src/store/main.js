@@ -27,6 +27,9 @@ export default new Vuex.Store({
     QUEUE_ADD: function (state, item) {
       state.queue.push(item);
     },
+    QUEUE_REMOVE: function (state, index) {
+      state.queue.splice(index, 1)
+    },
     RESET_INGREDIENTS: function (state, items) {
       state.ingredients = [];
       const newEq = [...state.eq]
