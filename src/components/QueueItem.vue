@@ -1,8 +1,16 @@
 <template>
-  <li>{{name}}</li>
+  <li>{{name}} <span></span></li>
 </template>
 
 <script>
+
+const timers = {
+  mlotek: 10,
+  bezpiecznik: 25,
+}
+
+console.log(timers); 
+
 export default {
   name: 'QueueItem',
   props: ['name']

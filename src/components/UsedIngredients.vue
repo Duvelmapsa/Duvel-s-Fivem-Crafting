@@ -59,8 +59,32 @@ export default {
         test.push(item.item);
       })
 
-      Object.keys(patterns).forEach((key) => {
+      console.log(Object.keys(patterns))
+
+      // Object.keys(patterns).every((key) => {
+
+      //   console.log('key',key)
+
+      //   found = test.filter((elem) => {
+      //     console.log(elem);
+      //     return patterns[key].indexOf(elem) > -1;
+      //   }).length == patterns[key].length
+
+      //   if (found === true && test.length === patterns[key].length) {
+      //     console.log('możliwy do wytworzenia:', key)
+      //     this.canBeCreated = key
+      //     this.addItem();
+      //     // return false;
+      //   } else {
+      //     this.removeItem();
+      //   }
+      // })
+
+      for (let key of Object.keys(patterns)) {
+        console.log('key',key)
+
         found = test.filter((elem) => {
+          console.log(elem);
           return patterns[key].indexOf(elem) > -1;
         }).length == patterns[key].length
 
@@ -68,12 +92,19 @@ export default {
           console.log('możliwy do wytworzenia:', key)
           this.canBeCreated = key
           this.addItem();
+          return false;
         } else {
           this.removeItem();
         }
-      })
+
       console.log(found);
-    }
+      
+      if (found == false ) {
+        this.canBeCreated = '';
+      }
+
+      }
+     }
   },
   methods: {
     ...mapMutations({
