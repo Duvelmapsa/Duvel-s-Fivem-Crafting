@@ -4,7 +4,7 @@
     <div class="craftingWrapper__usedIngr">
       <div class="craftingWrapper__usedIngr_subwrapper">
         <draggable class="used_drag_list" :list='ingredients' group="people">
-          <div class="testBlock" v-for="(item, index) in ingredients" :key="index">
+          <div class="testBlock" @click="removeIngredient(index)" v-for="(item, index) in ingredients" :key="index">
             <div class="craftingWrapper__name">{{item.name}}</div>
             <div class="craftingWrapper__count">x{{item.count}}</div>
           </div>
@@ -52,13 +52,15 @@ export default {
       this.used = [...e]
     },
     used: function (e) {
+      console.log('used sie zmienilo')
+      let found = null;
       const test = [];
       e.map(item => {
         test.push(item.item);
       })
 
       Object.keys(patterns).forEach((key) => {
-        const found = test.filter((elem) => {
+        found = test.filter((elem) => {
           return patterns[key].indexOf(elem) > -1;
         }).length == patterns[key].length
 
@@ -69,15 +71,16 @@ export default {
         } else {
           this.removeItem();
         }
-        
       })
+      console.log(found);
     }
   },
   methods: {
     ...mapMutations({
       setCanBeCreated: 'CAN_BE_CREATED_ITEM',
       setQueue: 'QUEUE_ADD',
-      resetIngredients: 'RESET_INGREDIENTS'
+      resetIngredients: 'RESET_INGREDIENTS',
+      remove: 'REMOVE_INGREDIENTS'
     }),
     addItem: function () {
       this.setCanBeCreated(this.canBeCreated);
@@ -96,6 +99,9 @@ export default {
       } else {
         console.log('Nie można nic wytworzyć');
       }
+    },
+    removeIngredient: function (index) {
+      this.remove(index)
     }
   }
 

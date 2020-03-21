@@ -39,6 +39,9 @@ export default new Vuex.Store({
           newEq[key].count = newEq[key].count - 1;
         }
       })
+    },
+    REMOVE_INGREDIENTS: function (state, index) {
+      state.ingredients.splice(index, 1)
     }
   },
   getters: {
