@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="craftingWrapper">
+    <div v-if="test == true" class="craftingWrapper">
 
       <div class="left-column">
         <CraftingEQ />
@@ -26,12 +26,24 @@ import store from './store/main.js'
 
 export default {
   name: "App",
+  data: function () {
+    return {
+      test: false
+    }
+  },
   store,
   components: {
     CraftingEQ,
     UsedIngredients,
     KnownRecipes,
     Queue
+  },
+  mounted: function () {
+    window.addEventListener(event => {
+      if (event.data.inventory == 'show') {
+        this.test = true
+      }
+    });
   }
 };
 </script>
